@@ -9,12 +9,7 @@ w połączeniu ze Spring Framework, takie jak:
 * Hibernate Framework & Spring Data JPA
 * Baza danych PostgreSQL
 * Hibernate Validator
+* Spring Security
 * OpenAPI & Swagger
 * Lombok
 * Thymeleaf
-
-Backend umożliwia:
-* Logowanie i rejestracje użytkowników
-* Wystawianie przedmiotów na sprzedaż
-* Kupowanie wystawionych na sprzedaż przedmiotów
-* Pozostawianie opinii o kupionych przedmiotach
