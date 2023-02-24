@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Webpage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+
+</style>
+<body>
+<div th:fragment="core">
+    <div>
+        <h1>Lista sprzedanych przez Ciebie przedmiotów</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Nazwa przedmiotu</th>
+                <th>Kupujący</th>
+                <th>Liczba sztuk</th>
+                <th>Cena za sztukę</th>
+                <th>Cena</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="purchasedItem: ${items}">
+                <th th:text="${purchasedItem.listedItem.name}"></th>
+                <th th:text="${purchasedItem.buyer.username}"></th>
+                <th th:text="${purchasedItem.count}"></th>
+                <th th:text="${@priceFormatter.format(purchasedItem.priceAtPurchase)}"></th>
+                <th th:text="${@priceFormatter.format(purchasedItem.count * purchasedItem.priceAtPurchase)}"></th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

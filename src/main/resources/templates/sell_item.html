@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Webpage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+
+</style>
+<body>
+<div th:fragment="core">
+    <div>
+        <h1>Sprzedaj przedmiot</h1>
+        <form name='x' action="/user/sell_item" method='POST'>
+            <table>
+                <tr>
+                    <td>Nazwa:</td>
+                    <td><input type='text' name='name' value=''></td>
+                </tr>
+                <tr>
+                    <td>Cena:</td>
+                    <td><input type='text' name='price' value=''></td>
+                </tr>
+                <tr>
+                    <td>Liczba sztuk:</td>
+                    <td><input type='text' name='stock' value=''></td>
+                </tr>
+                <tr>
+                    <td><input name="submit" type="submit" value="Sprzedaj!"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

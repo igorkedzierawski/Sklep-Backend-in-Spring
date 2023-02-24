@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Webpage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+
+</style>
+<body>
+<div th:fragment="core">
+    <div>
+        <h1>Strona przedmiotu <span th:text="${listedItem.name}"></span></h1>
+        <table id="listedItem-table" th:attr="listedItem-id=${listedItem.id},price-at-purchase=${listedItem.price}">
+            <thead>
+            <tr>
+                <th>Sprzedawca</th>
+                <th>Nazwa przedmiotu</th>
+                <th>Cena</th>
+                <th>Liczba sztuk</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th th:text="${listedItem.seller.username}"></th>
+                <th th:text="${listedItem.name}"></th>
+                <th th:text="${@priceFormatter.format(listedItem.price)}"></th>
+                <th th:text="${listedItem.stock}"></th>
+            </tr>
+            </tbody>
+        </table>
+        <div th:switch="${perspective}">
+            <div th:case="'anonymous'">
+                <span>Aby kupić przedmiot musisz się zalogować</span>
+            </div>
+            <div th:case="'seller'">
+                <a th:attr="href=${'/user/update_item/'+listedItem.id}">Edytuj</a>
+            </div>
+            <div th:case="'buyer'">
+                <form th:if="${canBuy}" action="/user/purchase" method="POST">
+                    <input style="display: none" type="number" name="listedItemId" th:attr="value=${listedItem.id}">
+                    <input style="display: none" type="number" name="priceAtPurchase"
+                           th:attr="value=${listedItem.price}">
+                    <input type="number" name="pieces" min="1" th:attr="max=${maxPieces}">
+                    <input name="submit" type="submit" value="Kup"/>
+                </form>
+                <span th:unless="${canBuy}">
+                    Masz za mało pieniędzy aby kupić ten przedmiot
+                </span>
+            </div>
+        </div>
+        <table id="opinie">
+            <thead>
+            <tr>
+                <th>Opinie</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="opinion: ${opinions}">
+                <th>
+                    <h3 th:text="${opinion.purchasedItem.buyer.username}"></h3>
+                    <p th:text="${opinion.content}"></p>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

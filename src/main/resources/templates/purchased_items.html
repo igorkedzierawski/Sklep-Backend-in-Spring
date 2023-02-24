@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Webpage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+
+</style>
+<body>
+<div th:fragment="core">
+    <div>
+        <h1>Lista kupionych przez Ciebie przedmiotów</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Nazwa przedmiotu</th>
+                <th>Sprzedający</th>
+                <th>Liczba sztuk</th>
+                <th>Cena za sztukę</th>
+                <th>Cena</th>
+                <th>Opinia</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="purchasedItem: ${items}">
+                <th th:text="${purchasedItem.listedItem.name}"></th>
+                <th th:text="${purchasedItem.listedItem.seller.username}"></th>
+                <th th:text="${purchasedItem.count}"></th>
+                <th th:text="${@priceFormatter.format(purchasedItem.priceAtPurchase)}"></th>
+                <th th:text="${@priceFormatter.format(purchasedItem.count * purchasedItem.priceAtPurchase)}"></th>
+                <th th:with="opinionPresent=${opinionPresentItemIds.contains(purchasedItem.id)}">
+                    <div th:if="${opinionPresent}" class="opinion-present">
+                        <input class="id-holder" style="display: none" type="number" name="purchasedItemId" th:attr="value=${itemIdToOpinionIdMap.get(purchasedItem.id)}">
+                        <input id="delete-opinion-button" name="submit" type="submit" value="Usuń">
+                    </div>
+                    <form th:unless="${opinionPresent}" class="opinion-not-present" action="/user/opinion" METHOD="GET">
+                        <input style="display: none" type="number" name="purchased_item_id" th:attr="value=${purchasedItem.id}">
+                        <input name="submit" type="submit" value="Zostaw">
+                    </form>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.querySelectorAll(".opinion-present").forEach(e => {
+            e.onclick = function () {
+                    var xmlHttp = new XMLHttpRequest();
+                    xmlHttp.open( "DELETE", "/user/opinion?opinion_id="+e.querySelectorAll(".id-holder")[0].value, false );
+                    xmlHttp.send( null );
+                    return xmlHttp.responseText;
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

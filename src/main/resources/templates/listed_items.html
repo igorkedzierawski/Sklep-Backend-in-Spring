@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Webpage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+
+</style>
+<body>
+<div th:fragment="core">
+    <div>
+        <h1>Lista sprzedawanych przez Ciebie przedmiotów</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Nazwa przedmiotu</th>
+                <th>Cena</th>
+                <th>Liczba sztuk</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="listedItem: ${items}">
+                <th>
+                    <a th:attr="href=${'/item/'+listedItem.id}" th:text="${listedItem.name}"></a>
+                </th>
+                <th th:text="${@priceFormatter.format(listedItem.price)}"></th>
+                <th th:text="${listedItem.stock}"></th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

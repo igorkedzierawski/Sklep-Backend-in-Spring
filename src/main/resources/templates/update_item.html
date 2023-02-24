@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Webpage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+
+</style>
+<body>
+<div th:fragment="core">
+    <div>
+        <h1>Zaktualizuj informacje o przedmiocie</h1>
+        <form name='x' action="/user/update_item" method='POST'>
+            <input style="display: none" type="number" name="listedItemId" th:attr="value=${listedItem.id}">
+            <table>
+                <tr>
+                    <td>Nazwa:</td>
+                    <td><input type='text' name='name' th:attr="value=${listedItem.name}"></td>
+                </tr>
+                <tr>
+                    <td>Cena:</td>
+                    <td><input type='text' name='price' th:attr="value=${listedItem.price}"></td>
+                </tr>
+                <tr>
+                    <td>Liczba sztuk:</td>
+                    <td><input type='text' name='stock' th:attr="value=${listedItem.stock}"></td>
+                </tr>
+                <tr>
+                    <td><input name="submit" type="submit" value="Zaktualizuj informacje"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

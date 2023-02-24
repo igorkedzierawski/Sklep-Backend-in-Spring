@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <title>Default Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div>
+    <div th:fragment="login">
+        <a href="/login">Zaloguj się</a>
+        <br>
+        <a href="/register">Zarejestruj się</a>
+    </div>
+    <div th:fragment="logged_in">
+        <table>
+            <tr>
+                <th>
+                    <a href="/user/userpage" th:text="${user.username}"></a>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <a href="/perform_logout">Wyloguj</a>
+                </th>
+            </tr>
+            <tr>
+                <th th:text="${'Portfel: '+@priceFormatter.format(user.balance)}"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

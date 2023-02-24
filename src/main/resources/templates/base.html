@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Webpage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+    #page {
+        display: block;
+    }
+    #header {
+        display: flow-root;
+        width: 100%;
+        background-color: #cacaca;
+        height=200px;
+    }
+    #main {
+        max-width: 1024px;
+        width: 100%;
+        background-color: #e3e3e3;
+        margin: 0 auto;
+    }
+    #logo {
+        font-size: 70px;
+    }
+    .small_spacing_before:before {
+        content: '';
+        width: 50px;
+        min-width: 40px;
+        max-width: 200px;
+        display: inline-block;
+    }
+    .float-left {
+        float: left;
+    }
+    .float-right {
+        float: right;
+    }
+</style>
+<body>
+<div id="page">
+    <div id="header">
+        <div id="logo" class="float-left"><a href="/">Sklep</a></div>
+        <div id="searchbar" class="float-left small_spacing_before">
+            <input id="searchbar-input" type="text">
+            <button id="searchbar-button">Wyszukaj</button>
+        </div>
+        <div id="sprzedaj-przedmiot" class="float-left small_spacing_before">
+            <a href="/user/sell_item">Sprzedaj przedmiot</a>
+        </div>
+        <div id="moje-przedmioty" class="float-left small_spacing_before">
+            <a href="/user/listed_items">Moje przedmioty</a>
+        </div>
+        <div id="sprzedane-przedmioty" class="float-left small_spacing_before">
+            <a href="/user/sold_items">Sprzedane przedmioty</a>
+        </div>
+        <div id="kupione-przedmioty" class="float-left small_spacing_before">
+            <a href="/user/purchased_items">Kupione przedmioty</a>
+        </div>
+        <div id="usermenu" class="float-right" th:insert="/usermenu :: ${usermenuState}"></div>
+    </div>
+    <div id="main" th:switch="${mainDisplay}">
+        <div th:case="'main'">
+            <div th:replace="/main :: core"></div>
+        </div>
+        <div th:case="'listed_items'">
+            <div th:replace="/listed_items :: core"></div>
+        </div>
+        <div th:case="'sold_items'">
+            <div th:replace="/sold_items :: core"></div>
+        </div>
+        <div th:case="'purchased_items'">
+            <div th:replace="/purchased_items :: core"></div>
+        </div>
+        <div th:case="'sell_item'">
+            <div th:replace="/sell_item :: core"></div>
+        </div>
+        <div th:case="'update_item'">
+            <div th:replace="/update_item :: core"></div>
+        </div>
+        <div th:case="'search_for_items_display'">
+            <div th:replace="/search_for_items_display :: core"></div>
+        </div>
+        <div th:case="'item_page'">
+            <div th:replace="/item_page :: core"></div>
+        </div>
+        <div th:case="'leave_opinion'">
+            <div th:replace="/leave_opinion :: core"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("searchbar-button").onclick = function () {
+            location.href = "/search_for_items?query="+document.getElementById("searchbar-input").value;
+        };
+    </script>
+</div>
+</body>
+</html>

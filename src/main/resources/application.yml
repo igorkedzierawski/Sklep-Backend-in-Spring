@@ -1,0 +1,15 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  datasource:
+    username: sklep_user
+    password: password
+    url: jdbc:postgresql://localhost:5432/sklep_database
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
